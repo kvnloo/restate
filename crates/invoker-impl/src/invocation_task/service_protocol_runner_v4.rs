@@ -1786,3 +1786,109 @@ where
         }
     }
 }
+
+#[cfg(test)]
+mod runtime_ack_tests {
+    use super::*;
+
+    use restate_service_client::{AssumeRoleCacheMode, ServiceClient};
+    use restate_types::config::ServiceClientOptions;
+    use restate_types::invocation::FencingToken;
+    use restate_types::live::Live;
+    use restate_types::schema::invocation_target::test_util::MockInvocationTargetResolver;
+
+    use crate::test_util::EmptyStorageReader;
+
+    // Regression for #5374, reported by muhamadazmy. The protocol-state accounting
+    // invariant and delayed-ack control were discussed by kvnloo on that issue.
+    #[tokio::test(start_paused = true)]
+    async fn delayed_runtime_ack_does_not_suspend_the_sdk() {
+        let (invoker_tx, mut proposals) = mpsc::unbounded_channel();
+        let (acks, invoker_rx) = mpsc::unbounded_channel();
+        let mut task = InvocationTask {
+            client: ServiceClient::from_options(
+                &ServiceClientOptions::default(),
+                AssumeRoleCacheMode::None,
+            )
+            .unwrap(),
+            invocation_id: InvocationId::mock_random(),
+            fencing_token: FencingToken::default(),
+            invocation_target: InvocationTarget::mock_virtual_object(),
+            limit_key: LimitKey::None,
+            idempotency_key: None,
+            inactivity_timeout: Duration::from_millis(100),
+            abort_timeout: Duration::from_secs(1),
+            eager_state_size_limit: 1024,
+            message_size_warning: NonZeroUsize::new(1024).unwrap(),
+            message_size_limit: NonZeroUsize::new(4096).unwrap(),
+            retry_count_since_last_stored_entry: 0,
+            max_awaited_future_depth: 10,
+            schemas: Live::from_value(MockInvocationTargetResolver::default()),
+            invoker_tx,
+            invoker_rx,
+            action_token_bucket: None,
+        };
+        let mut runner = ServiceProtocolRunner {
+            invocation_task: &mut task,
+            service_protocol_version: ServiceProtocolVersion::V7,
+            encoder: Encoder::new(ServiceProtocolVersion::V7),
+            command_index: 0,
+            deployment_type_str: "http",
+            max_awaited_future_depth: 10,
+        };
+        let mut span = ServiceSpan::noop();
+        let header = MessageHeader::try_from(
+            u64::from(MessageHeader::new(MessageType::ProposeRunCompletion, 0)) | 0x8000_0000_0000,
+        )
+        .unwrap();
+        assert!(matches!(
+            runner.handle_message(
+                header,
+                Message::ProposeRunCompletion(proto::ProposeRunCompletionMessage {
+                    result_completion_id: 7,
+                    result: Some(proto::propose_run_completion_message::Result::Value(
+                        Bytes::from_static(b"done"),
+                    )),
+                }),
+                &mut span,
+            ),
+            TerminalLoopState::Continue(())
+        ));
+        assert!(matches!(
+            proposals.recv().await.unwrap().inner,
+            InvocationTaskOutputInner::NewNotificationProposal {
+                requested_ack: true,
+                ..
+            }
+        ));
+
+        let (wire_tx, mut wire_rx) = mpsc::unbounded_channel();
+        let mut sdk = futures::stream::pending();
+        let mut budget = LocalMemoryPool::unlimited();
+        let mut running = std::pin::pin!(runner.bidi_stream_loop(
+            wire_tx,
+            &mut sdk,
+            EmptyStorageReader,
+            JournalKind::V2,
+            0,
+            &mut budget,
+            &mut span,
+        ));
+
+        // The partition apply/ack takes twice the SDK inactivity budget.
+        tokio::select! {
+            _ = &mut running => panic!("runtime acknowledgement latency suspended the SDK"),
+            _ = tokio::time::sleep(Duration::from_millis(200)) => {},
+        }
+        acks.send(Notification::ProposeRunCompletionAck(7)).unwrap();
+        tokio::select! {
+            _ = &mut running => panic!("the SDK did not get a fresh inactivity budget"),
+            frame = wire_rx.recv() => assert!(frame.unwrap().is_ok()),
+        }
+        // Once acknowledged, an actually idle SDK must still be suspended.
+        assert!(matches!(
+            tokio::time::timeout(Duration::from_millis(200), running).await,
+            Ok(TerminalLoopState::Continue(()))
+        ));
+    }
+}
