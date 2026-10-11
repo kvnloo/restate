@@ -1,0 +1,29 @@
+{
+  "versions": {
+    "rustfmt": "rustfmt 1.9.0-stable (48a229ceae 2026-09-01)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)"
+  },
+  "exit_status": 1,
+  "sha256_before": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea",
+  "sha256_after": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea",
+  "git_blob": "7f31d4532b3c80d14af6aa090f67ad48e40ee22e",
+  "free_bytes": 31375163392,
+  "reviewed_head": "ba91f1c92ee54fa0ca8a560bad054aae035382a7",
+  "input": "cli/src/commands/search.rs",
+  "edition": "2024",
+  "rustfmt_initially_available": false,
+  "toolchain_install_exit_status": 0,
+  "measured_storage": {
+    "rustup": "584 MiB",
+    "cargo": "21 MiB",
+    "total_approx": "605 MiB"
+  },
+  "commands": {
+    "install": "RUSTUP_HOME=\"${REVIEW_ROOT}/rustup\" CARGO_HOME=\"${REVIEW_ROOT}/cargo\" sh \"${REVIEW_ROOT}/rustup-init.sh\" -y --no-modify-path --profile minimal --default-toolchain 1.98.1 --component rustfmt",
+    "installer_download": "curl --fail --location --proto \"=https\" --tlsv1.2 https://sh.rustup.rs -o \"${REVIEW_ROOT}/rustup-init.sh\"",
+    "parser": "${REVIEW_ROOT}/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin/rustfmt --edition 2024 --check ${REVIEW_ROOT}/source/cli/src/commands/search.rs",
+    "source_references": "rg -n \"index_docs|index_examples|parse_markdown_file|build_index\" \"${REVIEW_ROOT}/source\" --glob \"*.rs\""
+  },
+  "path_note": "REVIEW_ROOT is the isolated writable task directory; commands are normalized from the actual absolute-path invocations."
+}

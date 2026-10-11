@@ -1,0 +1,21 @@
+Official parser result; sandbox path normalized to ${REVIEW_ROOT}.
+
+Command:
+${REVIEW_ROOT}/rustup/toolchains/1.98.1-x86_64-unknown-linux-gnu/bin/rustfmt --edition 2024 --check ${REVIEW_ROOT}/source/cli/src/commands/search.rs
+
+Exit status: 1
+stdout: empty
+stderr:
+error: this file contains an unclosed delimiter
+   --> ${REVIEW_ROOT}/source/cli/src/commands/search.rs:530:2
+    |
+486 | fn index_examples(root: &std::path::Path, entries: &mut Vec<Entry>) {
+    |                                                                     - unclosed delimiter
+487 |     let mut dirs_to_visit = vec![root.to_path_buf()];
+488 |     while let Some(dir) = dirs_to_visit.pop() {
+    |                                               - this delimiter might not be properly closed...
+...
+529 | }
+    | - ...as it matches this but it has different indentation
+530 |
+    | ^
