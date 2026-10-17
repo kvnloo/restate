@@ -1,0 +1,936 @@
+{
+  "audit_date": "2026-10-17",
+  "environment": "Linux ARM64 / PRoot phone",
+  "owner_head": "ba91f1c92ee54fa0ca8a560bad054aae035382a7",
+  "control_origin_main": "954797e4a36cf146ab4261cf0b6622375d1f5ae6",
+  "runtime_limits": "No Cargo/SDK runtime/snapshot/metrics execution; parser only.",
+  "dependency_access": {
+    "command": "git ls-remote https://github.com/restatedev/rust-sasl.git",
+    "exit_code": 0,
+    "pinned_ref": "d3e87c54e87327ddbd226881d7546ab7696bf683 refs/heads/cross-compilation"
+  },
+  "parser_initial_attempt": {
+    "command": [
+      "/root/workspace/doss-lane23/rustfmt-1.98.1-aarch64-unknown-linux-gnu/rustfmt-preview/bin/rustfmt",
+      "--edition",
+      "2024",
+      "--check",
+      "/root/workspace/doss-lane23/restate-review5507/cli/src/commands/search.rs"
+    ],
+    "version_exit_code": 127,
+    "version": "/root/workspace/doss-lane23/rustfmt-1.98.1-aarch64-unknown-linux-gnu/rustfmt-preview/bin/rustfmt: error while loading shared libraries: librustc_driver-36de65988ef2d886.so: cannot open shared object file: No such file or directory\n",
+    "exit_code": 127,
+    "stdout": "",
+    "stderr": "/root/workspace/doss-lane23/rustfmt-1.98.1-aarch64-unknown-linux-gnu/rustfmt-preview/bin/rustfmt: error while loading shared libraries: librustc_driver-36de65988ef2d886.so: cannot open shared object file: No such file or directory\n",
+    "sha256_before": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea",
+    "sha256_after": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea"
+  },
+  "parser": {
+    "command": [
+      "/root/workspace/doss-lane23/rustfmt-1.98.1-aarch64-unknown-linux-gnu/rustfmt-preview/bin/rustfmt",
+      "--edition",
+      "2024",
+      "--check",
+      "/root/workspace/doss-lane23/restate-review5507/cli/src/commands/search.rs"
+    ],
+    "environment": {
+      "LD_LIBRARY_PATH": "/root/workspace/doss-lane23/rustc-1.98.1-aarch64-unknown-linux-gnu/rustc/lib"
+    },
+    "version_exit_code": 0,
+    "version": "rustfmt 1.9.0-stable (48a229ceae 2026-09-01)\n",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "error: this file contains an unclosed delimiter\n   --> /root/workspace/doss-lane23/restate-review5507/cli/src/commands/search.rs:530:2\n    |\n486 | fn index_examples(root: &std::path::Path, entries: &mut Vec<Entry>) {\n    |                                                                     - unclosed delimiter\n487 |     let mut dirs_to_visit = vec![root.to_path_buf()];\n488 |     while let Some(dir) = dirs_to_visit.pop() {\n    |                                               - this delimiter might not be properly closed...\n...\n529 | }\n    | - ...as it matches this but it has different indentation\n530 |\n    | ^\n\n",
+    "sha256_before": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea",
+    "sha256_after": "53770bd99eeabf7c8e61fb4047b128fb5e6a94e19b5e5872e93f11c6291af7ea"
+  },
+  "current_review_snapshot": {
+    "p5507": {
+      "number": 5507,
+      "title": "cli(search): add docs/examples indexing to restate search",
+      "url": "https://github.com/restatedev/restate/pull/5507",
+      "state": "OPEN",
+      "mergedAt": null,
+      "mergeCommit": null,
+      "headRefOid": "ba91f1c92ee54fa0ca8a560bad054aae035382a7",
+      "baseRefOid": "7d3d6b20ca03339430e1051e64cec1b366cbde24",
+      "author": {
+        "login": "ziuus"
+      },
+      "headRefName": "feat/cli-search-docs-indexing",
+      "headRepository": {
+        "nameWithOwner": "ziuus/restate"
+      },
+      "comments": {
+        "nodes": [
+          {
+            "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6014544075",
+            "author": {
+              "login": "github-actions"
+            },
+            "body": "All contributors have signed the CLA  \u270d\ufe0f \u2705<br/><sub>Posted by the ****CLA Assistant Lite bot****.</sub>"
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6014678521",
+            "author": {
+              "login": "ziuus"
+            },
+            "body": "I have read the CLA Document and I hereby sign the CLA"
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6108939356",
+            "author": {
+              "login": "ziuus"
+            },
+            "body": "Friendly bump on this PR when someone has a chance to take a look \u2014 CLA is signed and all checks pass. Thanks!"
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6143058235",
+            "author": {
+              "login": "tillrohrmann"
+            },
+            "body": "Thanks for creating this PR @ziuus. Could share a bit more context on what you are trying to achieve with this PR? The linked issue #1 seems to be unrelated."
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6143783023",
+            "author": {
+              "login": "ziuus"
+            },
+            "body": "Hi @tillrohrmann, thanks for taking a look! Apologies for the confusion\u2014the `Closes #1` was an accidental placeholder from the PR template and has now been removed.\n\nThe intent behind this PR is to expand `restate search` beyond CLI flags and SQL tables so developers can quickly discover relevant documentation guides and repository examples directly from the terminal via the `--source` flag."
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviews": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviewThreads": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "commits": {
+        "nodes": [
+          {
+            "commit": {
+              "statusCheckRollup": {
+                "contexts": {
+                  "nodes": [
+                    {
+                      "name": "CLAAssistant",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37451566900/job/112232432720"
+                    }
+                  ],
+                  "pageInfo": {
+                    "hasNextPage": false
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "p5517": {
+      "number": 5517,
+      "title": "Clean up leaked local snapshot export directories",
+      "url": "https://github.com/restatedev/restate/pull/5517",
+      "state": "OPEN",
+      "mergedAt": null,
+      "mergeCommit": null,
+      "headRefOid": "107a460f058d4856a49441789c85f00e7696400a",
+      "baseRefOid": "06f96af864ab941baeed4d5dba2e0c6a607480b2",
+      "author": {
+        "login": "pcholakov"
+      },
+      "headRefName": "pavel/snapshot-dir-cleanup",
+      "headRepository": {
+        "nameWithOwner": "restatedev/restate"
+      },
+      "comments": {
+        "nodes": [
+          {
+            "url": "https://github.com/restatedev/restate/pull/5517#issuecomment-6059218491",
+            "author": {
+              "login": "github-actions"
+            },
+            "body": "## Test Results\n\u2007\u20078 files\u2004 \u00b10\u2002\u2003\u2007\u20078 suites\u2004 \u00b10\u2002\u2003\u20025m 23s \u23f1\ufe0f +6s\n\u200761 tests \u00b10\u2002\u2003\u200761 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n268 runs\u200a \u00b10\u2002\u2003268 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n\nResults for commit 107a460f.\u2003\u00b1 Comparison against base commit 06f96af8.\n\n[test-results]:data:application/gzip;base64,H4sIAA6ix2oC/12MSw6DIBQAr2JYd/HQx6+XaQhCQqrS8FmZ3r1o1NIuZyaZlTg/2UTunbx1JBWfLxhL1NmHpeLQD1XUlLfI6QmPVIz5M0//qgYu4bSffoSNMcTDxLJsx57LA85ja77HnZvhzu3PhHn2uQKhIDRycMDkiJJxjQqRCqmMZA7ACq44Amjy/gDGaG/5AwEAAA==\n\n:recycle: This comment has been updated with latest results."
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviews": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviewThreads": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "commits": {
+        "nodes": [
+          {
+            "commit": {
+              "statusCheckRollup": {
+                "contexts": {
+                  "nodes": [
+                    {
+                      "name": "Check workspace-hack",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113338490515"
+                    },
+                    {
+                      "name": "CLAAssistant",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785326633/job/113338489479"
+                    },
+                    {
+                      "name": "plan",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113338493799"
+                    },
+                    {
+                      "name": "build-local-artifacts (${{ join(matrix.targets, ', ') }})",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339035297"
+                    },
+                    {
+                      "name": "Check CLI SQL tables reference",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113338492072"
+                    },
+                    {
+                      "name": "custom-ci",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339035042"
+                    },
+                    {
+                      "name": "Build and test (warp-ubuntu-latest-x64-16x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113338490739"
+                    },
+                    {
+                      "name": "Create docker image / build-and-push-image",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113338490843"
+                    },
+                    {
+                      "name": "Run Jepsen tests",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113338492153"
+                    },
+                    {
+                      "name": "Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571060"
+                    },
+                    {
+                      "name": "Vqueues Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570918"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570927"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests with Protocol V7 / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570924"
+                    },
+                    {
+                      "name": "Run SDK-Go integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571094"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571138"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Protocol V7 / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571079"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Bilrost schema encoding / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571201"
+                    },
+                    {
+                      "name": "Run SDK-Rust integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343571042"
+                    },
+                    {
+                      "name": "Run E2E tests",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570626"
+                    },
+                    {
+                      "name": "Run E2E tests with bilrost schema",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570629"
+                    },
+                    {
+                      "name": "Run E2E tests with vqueues",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785327914/job/113343570585"
+                    },
+                    {
+                      "name": "custom-docker-build-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339034332"
+                    },
+                    {
+                      "name": "build-global-artifacts",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339043730"
+                    },
+                    {
+                      "name": "custom-notarize",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339043091"
+                    },
+                    {
+                      "name": "host",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339053464"
+                    },
+                    {
+                      "name": "custom-homebrew",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339064087"
+                    },
+                    {
+                      "name": "custom-docker-push-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339064153"
+                    },
+                    {
+                      "name": "custom-npm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339064368"
+                    },
+                    {
+                      "name": "custom-release-notes",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339065479"
+                    },
+                    {
+                      "name": "announce",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339073953"
+                    },
+                    {
+                      "name": "custom-helm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37785328445/job/113339078252"
+                    },
+                    {
+                      "name": "Test Results",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/runs/113350882904"
+                    }
+                  ],
+                  "pageInfo": {
+                    "hasNextPage": false
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "p5518": {
+      "number": 5518,
+      "title": "Add per-partition snapshot freshness and upload progress metrics",
+      "url": "https://github.com/restatedev/restate/pull/5518",
+      "state": "OPEN",
+      "mergedAt": null,
+      "mergeCommit": null,
+      "headRefOid": "83b642c2a19a5df066b41bf2a7d86e61be60aed3",
+      "baseRefOid": "06f96af864ab941baeed4d5dba2e0c6a607480b2",
+      "author": {
+        "login": "pcholakov"
+      },
+      "headRefName": "pavel/snapshot-metrics",
+      "headRepository": {
+        "nameWithOwner": "restatedev/restate"
+      },
+      "comments": {
+        "nodes": [
+          {
+            "url": "https://github.com/restatedev/restate/pull/5518#issuecomment-6059209103",
+            "author": {
+              "login": "github-actions"
+            },
+            "body": "## Test Results\n\u2007\u20078 files\u2004 \u00b10\u2002\u2003\u2007\u20078 suites\u2004 \u00b10\u2002\u2003\u20025m 26s \u23f1\ufe0f +9s\n\u200761 tests \u00b10\u2002\u2003\u200761 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n268 runs\u200a \u00b10\u2002\u2003268 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n\nResults for commit 83b642c2.\u2003\u00b1 Comparison against base commit 06f96af8.\n\n[test-results]:data:application/gzip;base64,H4sIAPOFx2oC/12MSw6CMBQAr0K6dtEWfFYvY15/yYtATT8r490tBLC6nJlkXszT6BK7derUsVQoH2BLxExhrthLqKKmvEQQO9xTMebPPOhZDT+ERxp/hIsxxM3EMi9HCWqD/dia73HlZrhy+zNhmihXYKrXMEgjUVzxbD0H0IPQXuLFKnAgtAOOzvbs/QFcm55XAwEAAA==\n\n:recycle: This comment has been updated with latest results."
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5518#issuecomment-6106900252",
+            "author": {
+              "login": "kvnloo"
+            },
+            "body": "One bounded source-level gap worth checking on pcholakov's current head `83b642c2a19a5df066b41bf2a7d86e61be60aed3`: `report_partition_snapshot_gauges()` skips a led partition when it has no entry in `latest_snapshots`. After a worker restart, that map can be empty; when automatic snapshots are disabled, I could not identify a guaranteed status-refresh path that populates it before metrics reporting. The new per-partition age/LSN-lag series may therefore remain absent for a leader, despite the PR's intended behavior that gauges update with automatic snapshots disabled.\n\nThis is a **source-level P2 observation only**, not a native Rust regression or real metrics-recorder run. The new freshness calculations and stale-leader logic are not being challenged. A focused restart-with-automatic-snapshots-off metrics-recorder case would determine whether the gap is observable. Credit to pcholakov for the implementation; the independent review came from dot."
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviews": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviewThreads": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "commits": {
+        "nodes": [
+          {
+            "commit": {
+              "statusCheckRollup": {
+                "contexts": {
+                  "nodes": [
+                    {
+                      "name": "Check workspace-hack",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113285580572"
+                    },
+                    {
+                      "name": "CLAAssistant",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592426/job/113285582274"
+                    },
+                    {
+                      "name": "plan",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113285584013"
+                    },
+                    {
+                      "name": "build-local-artifacts (${{ join(matrix.targets, ', ') }})",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286177299"
+                    },
+                    {
+                      "name": "Check CLI SQL tables reference",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113285581471"
+                    },
+                    {
+                      "name": "custom-ci",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286176320"
+                    },
+                    {
+                      "name": "Build and test (warp-ubuntu-latest-x64-16x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113285580808"
+                    },
+                    {
+                      "name": "Create docker image / build-and-push-image",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113285581150"
+                    },
+                    {
+                      "name": "Run Jepsen tests",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113285582748"
+                    },
+                    {
+                      "name": "Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143852"
+                    },
+                    {
+                      "name": "Vqueues Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143812"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143909"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests with Protocol V7 / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143901"
+                    },
+                    {
+                      "name": "Run SDK-Go integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294144250"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143774"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Protocol V7 / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143965"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Bilrost schema encoding / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143999"
+                    },
+                    {
+                      "name": "Run SDK-Rust integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143987"
+                    },
+                    {
+                      "name": "Run E2E tests",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143643"
+                    },
+                    {
+                      "name": "Run E2E tests with bilrost schema",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143625"
+                    },
+                    {
+                      "name": "Run E2E tests with vqueues",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769592712/job/113294143666"
+                    },
+                    {
+                      "name": "custom-docker-build-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286176116"
+                    },
+                    {
+                      "name": "build-global-artifacts",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286177721"
+                    },
+                    {
+                      "name": "custom-notarize",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286177901"
+                    },
+                    {
+                      "name": "host",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286179425"
+                    },
+                    {
+                      "name": "custom-homebrew",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286179476"
+                    },
+                    {
+                      "name": "custom-docker-push-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286180197"
+                    },
+                    {
+                      "name": "custom-npm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286180003"
+                    },
+                    {
+                      "name": "custom-release-notes",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286179650"
+                    },
+                    {
+                      "name": "announce",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286181586"
+                    },
+                    {
+                      "name": "custom-helm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/37769593175/job/113286181597"
+                    },
+                    {
+                      "name": "Test Results",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/runs/113299848139"
+                    }
+                  ],
+                  "pageInfo": {
+                    "hasNextPage": false
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "p5538": {
+      "number": 5538,
+      "title": "expose record size limit as gauge metric",
+      "url": "https://github.com/restatedev/restate/pull/5538",
+      "state": "CLOSED",
+      "mergedAt": null,
+      "mergeCommit": null,
+      "headRefOid": "d751e2acb73bd7dbe00a2097c28497e4d4608bee",
+      "baseRefOid": "752283ec6600c45ed8a60c97d132508c5a45f3af",
+      "author": {
+        "login": "lukebond"
+      },
+      "headRefName": "luke/bifrost-record-size-limit-metric",
+      "headRepository": {
+        "nameWithOwner": "restatedev/restate"
+      },
+      "comments": {
+        "nodes": [
+          {
+            "url": "https://github.com/restatedev/restate/pull/5538#issuecomment-6091872080",
+            "author": {
+              "login": "github-actions"
+            },
+            "body": "## Test Results\n\u2007\u20078 files\u2004 \u00b10\u2002\u2003\u2007\u20078 suites\u2004 \u00b10\u2002\u2003\u20025m 17s \u23f1\ufe0f +9s\n\u200761 tests \u00b10\u2002\u2003\u200761 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n268 runs\u200a \u00b10\u2002\u2003268 \u2705 \u00b10\u2002\u20030 \ud83d\udca4 \u00b10\u2002\u20030 \u274c \u00b10\u2002\n\nResults for commit d751e2ac.\u2003\u00b1 Comparison against base commit 752283ec.\n\n[test-results]:data:application/gzip;base64,H4sIAEKPyWoC/12MSw7CIBQAr9KwdgEUgXoZw+c1ebEths/KeHdp01Z0OTPJvMiIEyRy6/SlI6lgPsGXaDKGpWLPVBU15TVKdsA9Fef+zAOf1dBTjAanHwExhribWJb1yKXe4Ti25nvcuBlu3P5cmGfMFYhXVwbcOKt665W3QKnhdFCOazEoEF5Iqi0AeX8AglnXLgMBAAA=\n\n:recycle: This comment has been updated with latest results."
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5538#issuecomment-6143014710",
+            "author": {
+              "login": "tillrohrmann"
+            },
+            "body": "Are we going to close this one @lukebond?"
+          },
+          {
+            "url": "https://github.com/restatedev/restate/pull/5538#issuecomment-6143073885",
+            "author": {
+              "login": "lukebond"
+            },
+            "body": "> Are we going to close this one @lukebond?\r\n\r\nmay as well, since the other half of the work is not going ahead."
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviews": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "reviewThreads": {
+        "nodes": [],
+        "pageInfo": {
+          "hasNextPage": false
+        }
+      },
+      "commits": {
+        "nodes": [
+          {
+            "commit": {
+              "statusCheckRollup": {
+                "contexts": {
+                  "nodes": [
+                    {
+                      "name": "Check workspace-hack",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114085757735"
+                    },
+                    {
+                      "name": "CLAAssistant",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009434482/job/114085751673"
+                    },
+                    {
+                      "name": "CLAAssistant",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38380411139/job/115239121139"
+                    },
+                    {
+                      "name": "plan",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085758400"
+                    },
+                    {
+                      "name": "build-local-artifacts (${{ join(matrix.targets, ', ') }})",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986220"
+                    },
+                    {
+                      "name": "Check CLI SQL tables reference",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114085758051"
+                    },
+                    {
+                      "name": "custom-ci",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986528"
+                    },
+                    {
+                      "name": "Build and test (warp-ubuntu-latest-x64-16x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114085757888"
+                    },
+                    {
+                      "name": "Create docker image / build-and-push-image",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114085758313"
+                    },
+                    {
+                      "name": "Run Jepsen tests",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114085758523"
+                    },
+                    {
+                      "name": "Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359138"
+                    },
+                    {
+                      "name": "Vqueues Run SDK-Java integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359126"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359018"
+                    },
+                    {
+                      "name": "Run SDK-Python integration tests with Protocol V7 / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359120"
+                    },
+                    {
+                      "name": "Run SDK-Go integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359069"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359077"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Protocol V7 / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359141"
+                    },
+                    {
+                      "name": "Run SDK-Typescript integration tests with Bilrost schema encoding / Features integration test (22.x)",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359130"
+                    },
+                    {
+                      "name": "Run SDK-Rust integration tests / Features integration test",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359102"
+                    },
+                    {
+                      "name": "Run E2E tests",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359030"
+                    },
+                    {
+                      "name": "Run E2E tests with bilrost schema",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090359088"
+                    },
+                    {
+                      "name": "Run E2E tests with vqueues",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436474/job/114090358983"
+                    },
+                    {
+                      "name": "custom-docker-build-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986262"
+                    },
+                    {
+                      "name": "build-global-artifacts",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986429"
+                    },
+                    {
+                      "name": "custom-notarize",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986728"
+                    },
+                    {
+                      "name": "host",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085986875"
+                    },
+                    {
+                      "name": "custom-homebrew",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085987327"
+                    },
+                    {
+                      "name": "custom-docker-push-release",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085987945"
+                    },
+                    {
+                      "name": "custom-npm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085987523"
+                    },
+                    {
+                      "name": "custom-release-notes",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085987395"
+                    },
+                    {
+                      "name": "announce",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085988192"
+                    },
+                    {
+                      "name": "custom-helm",
+                      "conclusion": "SKIPPED",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/actions/runs/38009436633/job/114085988039"
+                    },
+                    {
+                      "name": "Test Results",
+                      "conclusion": "SUCCESS",
+                      "status": "COMPLETED",
+                      "detailsUrl": "https://github.com/restatedev/restate/runs/114093113596"
+                    }
+                  ],
+                  "pageInfo": {
+                    "hasNextPage": false
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "factory_owned_open_prs": [],
+  "requirement_source": "https://github.com/restatedev/restate/pull/5507 (owner-proposed indexing; parse blocker and missing wiring only, not independent approval of feature use case)",
+  "execution_proof": {
+    "tested": [
+      "ziuus/restate:feat/cli-search-docs-indexing@ba91f1c92ee54fa0ca8a560bad054aae035382a7"
+    ],
+    "runtime": "native Rust1.98.1 rustfmt parser stderr in this record",
+    "result_status": "FAIL",
+    "limits": "Compiler parser was exercised; CLI build and search runtime NOT RUN."
+  }
+}
