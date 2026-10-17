@@ -932,5 +932,14 @@
     "runtime": "native Rust1.98.1 rustfmt parser stderr in this record",
     "result_status": "FAIL",
     "limits": "Compiler parser was exercised; CLI build and search runtime NOT RUN."
+  },
+  "origin_publication": {
+    "url": "https://github.com/restatedev/restate/pull/5507#issuecomment-6236725886",
+    "kind": "bounded comment on existing owner PR",
+    "approval_receipt": "https://github.com/kvnloo/restate/pull/1",
+    "owner_head": "ba91f1c92ee54fa0ca8a560bad054aae035382a7",
+    "implementation_owner": "ziuus",
+    "original_independent_review": "dot / OpenAI Codex",
+    "limits": "Parser failure and source call-graph finding only; no CLI build or runtime result."
   }
 }
